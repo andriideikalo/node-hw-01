@@ -1,10 +1,23 @@
 {
-  "dependencies": {
-    "nodemon": "^2.0.22"
-  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
-     }
-  }
-
+  },
+  "name": "hw-01",
+  "description": "node-hw-01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andriideikalo/node-hw-01.git"
+  },
+  "author": "AndriiD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andriideikalo/node-hw-01/issues"
+  },
+  "homepage": "https://github.com/andriideikalo/node-hw-01#readme"
+}
