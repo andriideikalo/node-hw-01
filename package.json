@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/andriideikalo/node-hw-01/issues"
   },
-  "homepage": "https://github.com/andriideikalo/node-hw-01#readme"
+  "homepage": "https://github.com/andriideikalo/node-hw-01#readme",
+  "dependencies": {
+    "commander": "^10.0.0"
+  }
 }

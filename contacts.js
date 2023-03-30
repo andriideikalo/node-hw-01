@@ -1,30 +1,55 @@
 const path = require("path");
 
-fs.readFile("readme.txt", data)
-  .then((data) => console.log(data.toString()))
-  .catch((err) => console.log(err.message));
-
-fs.writeFile("readme.txt", data)
-  .then((data) => console.log(data.toString()))
-  .catch((err) => console.log(err.message));
+const fs = require("fs").promises;
 
 const contactsPath = path.join("./db/contacts.json");
 
 // TODO: задокументировать каждую функцию
-function listContacts() {
-  // ...твой код
+async function listContacts() {
+  const data = await fs.readFile(contactsPath);
+  const contacts = JSON.parse(data);
+  return contacts;
 }
 
 function getContactById(contactId) {
-  // ...твой код
+  const contact = fs
+    .readFile(contactsPath, "utf-8")
+    .then((data) =>
+      JSON.parse(data).filter((contact) => contact.id === contactId)
+    )
+    .then(console.table)
+    .catch(console.warn);
+  return contact;
 }
 
 function removeContact(contactId) {
-  // ...твой код
+  const contacts = fs
+    .readFile(contactsPath, "utf-8")
+    .then((data) => JSON.parse(data))
+    .catch(console.warn);
+  fs.writeFile(
+    contactsPath,
+    JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
+  )
+    .then(() => console.log("Done!".green))
+    .catch(console.warn);
 }
 
 function addContact(name, email, phone) {
-  // ...твой код
+  const contacts = fs
+    .readFile(contactsPath, "utf-8")
+    .then((data) => JSON.parse(data))
+    .catch(console.warn);
+
+  fs.writeFile(
+    contactsPath,
+    JSON.stringify([
+      ...contacts,
+      { id: `${contacts.length + 1}`, name, email, phone },
+    ])
+  )
+    .then(() => console.log("Done".green))
+    .catch(console.warn);
 }
 module.exports = {
   listContacts,
