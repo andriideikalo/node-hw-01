@@ -11,15 +11,10 @@ async function listContacts() {
   return contacts;
 }
 
-function getContactById(contactId) {
-  const contact = fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) =>
-      JSON.parse(data).filter((contact) => contact.id === contactId)
-    )
-    .then(console.table)
-    .catch(console.warn);
-  return contact;
+async function getContactById(contactId) {
+  const getContactList = await listContacts();
+  const getcontact = getContactList.find(({ id }) => id === contactId);
+  return getcontact;
 }
 
 function removeContact(contactId) {
