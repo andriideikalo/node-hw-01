@@ -2,7 +2,7 @@ const path = require("path");
 
 const fs = require("fs").promises;
 
-const contactsPath = path.join("./db/contacts.json");
+const contactsPath = path.join(__dirname + "/db/contacts.json");
 
 // TODO: задокументировать каждую функцию
 async function listContacts() {
@@ -25,9 +25,7 @@ function removeContact(contactId) {
   fs.writeFile(
     contactsPath,
     JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
-  )
-    .then(() => console.log("Done!".green))
-    .catch(console.warn);
+  ).catch(console.warn);
 }
 
 function addContact(name, email, phone) {
@@ -42,9 +40,7 @@ function addContact(name, email, phone) {
       ...contacts,
       { id: `${contacts.length + 1}`, name, email, phone },
     ])
-  )
-    .then(() => console.log("Done".green))
-    .catch(console.warn);
+  ).catch(console.warn);
 }
 module.exports = {
   listContacts,
