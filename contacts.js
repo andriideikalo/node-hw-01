@@ -31,7 +31,8 @@ async function removeContact(contactId) {
 async function addContact(name, email, phone) {
   const contacts = await fs
     .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data));
+    .then((data) => JSON.parse(data))
+    .catch(console.warn);
   fs.writeFile(
     contactsPath,
     JSON.stringify([

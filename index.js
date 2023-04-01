@@ -31,8 +31,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "add":
-      const addNewContact = await addContact(name, email, phone);
-      console.log(addNewContact);
+      await addContact(name, email, phone);
       break;
 
     case "remove":
@@ -45,5 +44,3 @@ async function invokeAction({ action, id, name, email, phone }) {
 }
 
 invokeAction(argv);
-
-console.log("hello Boss!");
