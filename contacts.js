@@ -35,7 +35,7 @@ async function removeContact(contactId) {
     contactsPath,
     JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
   ).catch(console.warn);
-  console.log(`Contact: ${contactId} removed`);
+  console.log(`Сontact with "ID:${contactId}" has been removed`);
 }
 
 async function addContact(name, email, phone) {
@@ -47,7 +47,9 @@ async function addContact(name, email, phone) {
     contactsPath,
     JSON.stringify([...contacts, { id: nanoid(), name, email, phone }])
   );
-  console.log(`Contact added`);
+  console.log(`______________________________________`);
+  console.log(`Сontact named "${name}" has been added`);
+  console.log(`______________________________________`);
 }
 module.exports = {
   listContacts,
