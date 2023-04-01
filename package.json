@@ -22,6 +22,7 @@
   "homepage": "https://github.com/andriideikalo/node-hw-01#readme",
   "dependencies": {
     "3": "^2.1.0",
+    "chalk": "^3.0.0",
     "commander": "^10.0.0",
     "nanoid": "^3.3.6"
   }

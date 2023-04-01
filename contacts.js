@@ -1,8 +1,7 @@
 const path = require("path");
-
 const fs = require("fs").promises;
-
 const { nanoid } = require("nanoid");
+const chalk = require('chalk');
 
 const contactsPath = path.join(__dirname + "/db/contacts.json");
 
@@ -35,9 +34,8 @@ async function removeContact(contactId) {
     contactsPath,
     JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
   ).catch(console.warn);
-  console.log(`Сontact with "ID:${contactId}" has been removed`);
+  console.log(chalk.bgYellow(`Сontact with "ID:${contactId}" has been removed`));
 }
-
 async function addContact(name, email, phone) {
   const contacts = await fs
     .readFile(contactsPath, "utf-8")
@@ -47,9 +45,7 @@ async function addContact(name, email, phone) {
     contactsPath,
     JSON.stringify([...contacts, { id: nanoid(), name, email, phone }])
   );
-  console.log(`______________________________________`);
-  console.log(`Сontact named "${name}" has been added`);
-  console.log(`______________________________________`);
+  console.log(chalk.bgYellow(`Сontact named "${name}" has been added`));
 }
 module.exports = {
   listContacts,
