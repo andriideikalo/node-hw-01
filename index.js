@@ -1,6 +1,7 @@
 const {
   listContacts,
   getContactById,
+  getContactByName,
   removeContact,
   addContact,
 } = require("./contacts");
@@ -25,13 +26,19 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      const getcontact = await getContactById(id);
-      console.table(getcontact);
+      const getContact = await getContactById(id);
+      console.table(getContact);
+
+      break;
+    case "getName":
+      const getName = await getContactByName(name);
+      console.table(getName);
 
       break;
 
     case "add":
       await addContact(name, email, phone);
+
       break;
 
     case "remove":
