@@ -17,8 +17,8 @@ async function getContactById(contactId) {
   return getcontact;
 }
 
-function removeContact(contactId) {
-  const contacts = fs
+async function removeContact(contactId) {
+  const contacts = await fs
     .readFile(contactsPath, "utf-8")
     .then((data) => JSON.parse(data))
     .catch(console.warn);
@@ -28,19 +28,17 @@ function removeContact(contactId) {
   ).catch(console.warn);
 }
 
-function addContact(name, email, phone) {
-  const contacts = fs
+async function addContact(name, email, phone) {
+  const contacts = await fs
     .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
-
+    .then((data) => JSON.parse(data));
   fs.writeFile(
     contactsPath,
     JSON.stringify([
       ...contacts,
       { id: `${contacts.length + 1}`, name, email, phone },
     ])
-  ).catch(console.warn);
+  );
 }
 module.exports = {
   listContacts,
