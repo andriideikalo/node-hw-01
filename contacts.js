@@ -26,27 +26,37 @@ async function getContactByName(contactName) {
 }
 
 async function removeContact(contactId) {
-  const contacts = await fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
-  fs.writeFile(
-    contactsPath,
-    JSON.stringify(contacts.filter((contact) => contact.id !== contactId))
-  ).catch(console.warn);
-  console.log(chalk.bgYellow(`Сontact with "ID:${contactId}" has been removed`));
-}
-async function addContact(name, email, phone) {
-  const contacts = await fs
-    .readFile(contactsPath, "utf-8")
-    .then((data) => JSON.parse(data))
-    .catch(console.warn);
-  fs.writeFile(
-    contactsPath,
-    JSON.stringify([...contacts, { id: nanoid(), name, email, phone }])
-  );
-  console.log(chalk.bgYellow(`Сontact named "${name}" has been added`));
-}
+    try {
+      const contacts = await fs.readFile(contactsPath, "utf-8");
+      const parsedContacts = JSON.parse(contacts);
+      const filteredContacts = parsedContacts.filter(
+        (contact) => contact.id !== contactId
+      );
+      await fs.writeFile(contactsPath, JSON.stringify(filteredContacts));
+      console.log(chalk.bgYellow(`Сontact with "ID:${contactId}" has been removed`));
+    } catch (error) {
+      console.warn(error);
+    }
+   }
+  async function addContact(name, email, phone) {
+  
+    try {
+      const contacts = await fs.readFile(contactsPath, "utf-8");
+      const parsedContacts = JSON.parse(contacts);
+      const newContact = {
+        id: nanoid(),
+        name: name,
+        email: email,
+        phone: phone,
+      };
+      const updatedContacts = [...parsedContacts, newContact];
+      await fs.writeFile(contactsPath, JSON.stringify(updatedContacts));
+      console.log(chalk.bgYellow(`Сontact named "${name}" has been added`));
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
 module.exports = {
   listContacts,
   getContactById,
